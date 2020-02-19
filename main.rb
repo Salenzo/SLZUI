@@ -163,10 +163,8 @@ class Container < Widget
   end
   def draw
     super
-    #GUI.draw_bg(@x, @y, @width, @height)
-    Gosu.draw_rect(@x, @y, @width, @height, 0x30_ffffff)
     Gosu.clip_to(@x, @y, @width, @height) do
-      @children.each do |child|
+      (@children.is_a?(Enumerable) ? @children : [@children]).each do |child|
         child = child.first unless child.is_a?(Widget)
         if child.x < @x + @width && child.x + child.width >= @x &&
            child.y < @y + @height && child.y + child.height >= @y

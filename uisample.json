@@ -33,27 +33,67 @@
       {
         "type": "GridContainer",
         "children": [
-          [
-            {
-              "type": "Button",
-              "text": "Ａ"
-            },
-            0, 0, 1, 1
-          ],
-          [
-            {
-              "type": "Button",
-              "text": "Ｂ"
-            },
-            1, 0, 1, 1
-          ],
-          [
-            {
-              "type": "Button",
-              "text": "Ｃ"
-            },
-            1, 1, 1, 1
-          ]
+          [{"type": "Button", "text": "`"}, 0, 0, 1, 4],
+          [{"type": "Button", "text": "1"}, 0, 4, 1, 4],
+          [{"type": "Button", "text": "2"}, 0, 8, 1, 4],
+          [{"type": "Button", "text": "3"}, 0, 12, 1, 4],
+          [{"type": "Button", "text": "4"}, 0, 16, 1, 4],
+          [{"type": "Button", "text": "5"}, 0, 20, 1, 4],
+          [{"type": "Button", "text": "6"}, 0, 24, 1, 4],
+          [{"type": "Button", "text": "7"}, 0, 28, 1, 4],
+          [{"type": "Button", "text": "8"}, 0, 32, 1, 4],
+          [{"type": "Button", "text": "9"}, 0, 36, 1, 4],
+          [{"type": "Button", "text": "0"}, 0, 40, 1, 4],
+          [{"type": "Button", "text": "-"}, 0, 44, 1, 4],
+          [{"type": "Button", "text": "="}, 0, 48, 1, 4],
+          [{"type": "Button", "text": "⌫"}, 0, 52, 1, 8],
+          [{"type": "Button", "text": "↹"}, 1, 0, 1, 6],
+          [{"type": "Button", "text": "Q"}, 1, 6, 1, 4],
+          [{"type": "Button", "text": "W"}, 1, 10, 1, 4],
+          [{"type": "Button", "text": "E"}, 1, 14, 1, 4],
+          [{"type": "Button", "text": "R"}, 1, 18, 1, 4],
+          [{"type": "Button", "text": "T"}, 1, 22, 1, 4],
+          [{"type": "Button", "text": "Y"}, 1, 26, 1, 4],
+          [{"type": "Button", "text": "U"}, 1, 30, 1, 4],
+          [{"type": "Button", "text": "I"}, 1, 34, 1, 4],
+          [{"type": "Button", "text": "O"}, 1, 38, 1, 4],
+          [{"type": "Button", "text": "P"}, 1, 42, 1, 4],
+          [{"type": "Button", "text": "["}, 1, 46, 1, 4],
+          [{"type": "Button", "text": "]"}, 1, 50, 1, 4],
+          [{"type": "Button", "text": "\\"}, 1, 54, 1, 6],
+          [{"type": "Button", "text": "⇬"}, 2, 0, 1, 7],
+          [{"type": "Button", "text": "A"}, 2, 7, 1, 4],
+          [{"type": "Button", "text": "S"}, 2, 11, 1, 4],
+          [{"type": "Button", "text": "D"}, 2, 15, 1, 4],
+          [{"type": "Button", "text": "F"}, 2, 19, 1, 4],
+          [{"type": "Button", "text": "G"}, 2, 23, 1, 4],
+          [{"type": "Button", "text": "H"}, 2, 27, 1, 4],
+          [{"type": "Button", "text": "J"}, 2, 31, 1, 4],
+          [{"type": "Button", "text": "K"}, 2, 35, 1, 4],
+          [{"type": "Button", "text": "L"}, 2, 39, 1, 4],
+          [{"type": "Button", "text": ";"}, 2, 43, 1, 4],
+          [{"type": "Button", "text": "'"}, 2, 47, 1, 4],
+          [{"type": "Button", "text": "↵"}, 2, 51, 1, 9],
+          [{"type": "Button", "text": "⇧"}, 3, 0, 1, 9],
+          [{"type": "Button", "text": "Z"}, 3, 9, 1, 4],
+          [{"type": "Button", "text": "X"}, 3, 13, 1, 4],
+          [{"type": "Button", "text": "C"}, 3, 17, 1, 4],
+          [{"type": "Button", "text": "V"}, 3, 21, 1, 4],
+          [{"type": "Button", "text": "B"}, 3, 25, 1, 4],
+          [{"type": "Button", "text": "N"}, 3, 29, 1, 4],
+          [{"type": "Button", "text": "M"}, 3, 33, 1, 4],
+          [{"type": "Button", "text": ","}, 3, 37, 1, 4],
+          [{"type": "Button", "text": "."}, 3, 41, 1, 4],
+          [{"type": "Button", "text": "/"}, 3, 45, 1, 4],
+          [{"type": "Button", "text": "⇧"}, 3, 49, 1, 11],
+          [{"type": "Button", "text": "^"}, 4, 0, 1, 5],
+          [{"type": "Button", "text": "⌘"}, 4, 5, 1, 5],
+          [{"type": "Button", "text": "⌥"}, 4, 10, 1, 5],
+          [{"type": "Button", "text": " "}, 4, 15, 1, 25],
+          [{"type": "Button", "text": "⌥"}, 4, 40, 1, 5],
+          [{"type": "Button", "text": "⌘"}, 4, 45, 1, 5],
+          [{"type": "Button", "text": "❖"}, 4, 50, 1, 5],
+          [{"type": "Button", "text": "^"}, 4, 55, 1, 5]
         ],
         "rows": [
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
