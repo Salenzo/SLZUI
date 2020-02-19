@@ -1,0 +1,131 @@
+{
+  "type": "AbsoluteContainer",
+  "children": [
+    [
+      {
+        "type": "TextField",
+        "text": "测试"
+      },
+      50, 120, 300, 24
+    ],
+    [
+      {
+        "type": "TextField",
+        "text": "测试中"
+      },
+      50, 170, 300, 24
+    ],
+    [
+      {
+        "type": "TextField",
+        "text": "测草"
+      },
+      50, 220, 300, 24
+    ],
+    [
+      {
+        "type": "Button",
+        "text": "草"
+      },
+      117, 77, 32, 32
+    ],
+    [
+      {
+        "type": "GridContainer",
+        "children": [
+          [
+            {
+              "type": "Button",
+              "text": "Ａ"
+            },
+            0, 0, 1, 1
+          ],
+          [
+            {
+              "type": "Button",
+              "text": "Ｂ"
+            },
+            1, 0, 1, 1
+          ],
+          [
+            {
+              "type": "Button",
+              "text": "Ｃ"
+            },
+            1, 1, 1, 1
+          ]
+        ],
+        "rows": [
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
+        ],
+        "columns": [
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
+				]
+      },
+      196, 247, 229, 78
+    ]
+  ]
+}
