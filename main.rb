@@ -18,9 +18,15 @@ class Widget
     @style = {}
   end
   def update
+    should_click = @style[:active]
     @style[:hover] = under_mouse?
-    @style[:active] = @style[:hover] && Gosu.button_down?(Gosu::MS_LEFT)
+    @style[:active] = @style[:hover] && $window.button_down?(Gosu::MS_LEFT)
+    @style[:active] ||= $window.button_down?(Gosu.const_get(@access_key)) if @access_key
     @style[:focus] = focused?
+    should_click &&= !@style[:active]
+    click if should_click
+  end
+  def click
   end
   def draw
   end
@@ -78,7 +84,8 @@ class TextField < Widget
 end
 
 module Cache
-  def self.image(name)
+  module_function
+  def image(name)
     @image_cache ||= {}
     @image_cache[name] ||= Gosu::Image.new("resources/#{name}.png", retro: true)
     @image_cache[name]
@@ -86,11 +93,12 @@ module Cache
 end
 
 module GUI
+  module_function
   FONT = Gosu::Font.new(16, name: "SimHei", bold: false, italic: false, underline: true)
-  def self.draw_sized(x, y, w, h, sx, sy, sw, sh)
+  def draw_sized(x, y, w, h, sx, sy, sw, sh)
     Cache.image("gui").subimage(sx, sy, sw, sh).draw(x, y, 0, w / sw.to_f, h / sh.to_f)
   end
-  def self.draw_9patch(
+  def draw_9patch(
     x, y, w, h,
     sx, sy, sw, sh,
     t, r, b, l,
@@ -110,10 +118,18 @@ module GUI
     draw_sized(x + l, y + h - b, w - l - r, b, sx + l, sy + sh - b, sw - l - r, b)
     draw_sized(x + w - r, y + h - b, r, b, sx + sw - r, sy + sh - b, r, b)
   end
-  def self.draw_bg(x, y, w, h)
+  def draw_16patch(
+    x, y, w, h,
+    sx, sy, sw, sh,
+    t, r, b, l,
+    gt = 0, gr = 0, gb = 0, gl = 0
+  )
+    raise "not implemented yet"
+  end
+  def draw_bg(x, y, w, h)
     draw_sized(x, y, w, h, 8, 0, 1, 1)
   end
-  def self.draw_dialog(x, y, w, h, options = {})
+  def draw_dialog(x, y, w, h, options = {})
     if options[:focus]
       draw_9patch(x, y, w, h, 0, 34, 14, 14, 6, 7, 7, 6, 0, 6, 6, 0)
     else
@@ -124,12 +140,18 @@ end
 
 class Button < Widget
   attr_accessor :text
+  attr_accessor :access_key
   def initialize
     super
     @text = ""
+    @access_key = ""
   end
   def update
     super
+  end
+  def click
+    super
+    p self
   end
   def draw
     super
@@ -292,6 +314,9 @@ class MainWindow < Gosu::Window
   def button_down(id)
     super
     @button_down_count[id] ||= 0
+  end
+  def button_down?(id)
+    !!@button_down_count[id]
   end
   def button_trigger?(id)
     @button_down_count[id] == 1

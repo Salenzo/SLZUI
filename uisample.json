@@ -1,99 +1,91 @@
 {
   "type": "AbsoluteContainer",
   "children": [
-    [
-      {
-        "type": "TextField",
-        "text": "测试"
-      },
-      50, 120, 300, 24
-    ],
-    [
-      {
-        "type": "TextField",
-        "text": "测试中"
-      },
-      50, 170, 300, 24
-    ],
-    [
-      {
-        "type": "TextField",
-        "text": "测草"
-      },
-      50, 220, 300, 24
-    ],
-    [
-      {
-        "type": "Button",
-        "text": "草"
-      },
-      117, 77, 32, 32
-    ],
+    [{"type": "Button", "access_key": "KB_Q", "text": "草草草"}, 80, 60, 64, 32],
     [
       {
         "type": "GridContainer",
         "children": [
-          [{"type": "Button", "text": "`"}, 0, 0, 1, 4],
-          [{"type": "Button", "text": "1"}, 0, 4, 1, 4],
-          [{"type": "Button", "text": "2"}, 0, 8, 1, 4],
-          [{"type": "Button", "text": "3"}, 0, 12, 1, 4],
-          [{"type": "Button", "text": "4"}, 0, 16, 1, 4],
-          [{"type": "Button", "text": "5"}, 0, 20, 1, 4],
-          [{"type": "Button", "text": "6"}, 0, 24, 1, 4],
-          [{"type": "Button", "text": "7"}, 0, 28, 1, 4],
-          [{"type": "Button", "text": "8"}, 0, 32, 1, 4],
-          [{"type": "Button", "text": "9"}, 0, 36, 1, 4],
-          [{"type": "Button", "text": "0"}, 0, 40, 1, 4],
-          [{"type": "Button", "text": "-"}, 0, 44, 1, 4],
-          [{"type": "Button", "text": "="}, 0, 48, 1, 4],
-          [{"type": "Button", "text": "⌫"}, 0, 52, 1, 8],
-          [{"type": "Button", "text": "↹"}, 1, 0, 1, 6],
-          [{"type": "Button", "text": "Q"}, 1, 6, 1, 4],
-          [{"type": "Button", "text": "W"}, 1, 10, 1, 4],
-          [{"type": "Button", "text": "E"}, 1, 14, 1, 4],
-          [{"type": "Button", "text": "R"}, 1, 18, 1, 4],
-          [{"type": "Button", "text": "T"}, 1, 22, 1, 4],
-          [{"type": "Button", "text": "Y"}, 1, 26, 1, 4],
-          [{"type": "Button", "text": "U"}, 1, 30, 1, 4],
-          [{"type": "Button", "text": "I"}, 1, 34, 1, 4],
-          [{"type": "Button", "text": "O"}, 1, 38, 1, 4],
-          [{"type": "Button", "text": "P"}, 1, 42, 1, 4],
-          [{"type": "Button", "text": "["}, 1, 46, 1, 4],
-          [{"type": "Button", "text": "]"}, 1, 50, 1, 4],
-          [{"type": "Button", "text": "\\"}, 1, 54, 1, 6],
-          [{"type": "Button", "text": "⇬"}, 2, 0, 1, 7],
-          [{"type": "Button", "text": "A"}, 2, 7, 1, 4],
-          [{"type": "Button", "text": "S"}, 2, 11, 1, 4],
-          [{"type": "Button", "text": "D"}, 2, 15, 1, 4],
-          [{"type": "Button", "text": "F"}, 2, 19, 1, 4],
-          [{"type": "Button", "text": "G"}, 2, 23, 1, 4],
-          [{"type": "Button", "text": "H"}, 2, 27, 1, 4],
-          [{"type": "Button", "text": "J"}, 2, 31, 1, 4],
-          [{"type": "Button", "text": "K"}, 2, 35, 1, 4],
-          [{"type": "Button", "text": "L"}, 2, 39, 1, 4],
-          [{"type": "Button", "text": ";"}, 2, 43, 1, 4],
-          [{"type": "Button", "text": "'"}, 2, 47, 1, 4],
-          [{"type": "Button", "text": "↵"}, 2, 51, 1, 9],
-          [{"type": "Button", "text": "⇧"}, 3, 0, 1, 9],
-          [{"type": "Button", "text": "Z"}, 3, 9, 1, 4],
-          [{"type": "Button", "text": "X"}, 3, 13, 1, 4],
-          [{"type": "Button", "text": "C"}, 3, 17, 1, 4],
-          [{"type": "Button", "text": "V"}, 3, 21, 1, 4],
-          [{"type": "Button", "text": "B"}, 3, 25, 1, 4],
-          [{"type": "Button", "text": "N"}, 3, 29, 1, 4],
-          [{"type": "Button", "text": "M"}, 3, 33, 1, 4],
-          [{"type": "Button", "text": ","}, 3, 37, 1, 4],
-          [{"type": "Button", "text": "."}, 3, 41, 1, 4],
-          [{"type": "Button", "text": "/"}, 3, 45, 1, 4],
-          [{"type": "Button", "text": "⇧"}, 3, 49, 1, 11],
-          [{"type": "Button", "text": "^"}, 4, 0, 1, 5],
-          [{"type": "Button", "text": "⌘"}, 4, 5, 1, 5],
-          [{"type": "Button", "text": "⌥"}, 4, 10, 1, 5],
-          [{"type": "Button", "text": " "}, 4, 15, 1, 25],
-          [{"type": "Button", "text": "⌥"}, 4, 40, 1, 5],
-          [{"type": "Button", "text": "⌘"}, 4, 45, 1, 5],
-          [{"type": "Button", "text": "❖"}, 4, 50, 1, 5],
-          [{"type": "Button", "text": "^"}, 4, 55, 1, 5]
+					[{"type": "TextField", "text": "测试中"}, 0, 0, 1, 1],
+					[{"type": "TextField", "text": "测草"}, 1, 0, 1, 1],
+					[{"type": "TextField", "text": "草"}, 2, 0, 1, 1]
+				],
+        "rows": [
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
+        ],
+        "columns": [
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
+				]
+			},
+			50, 120, 300, 72
+		],
+    [
+      {
+        "type": "GridContainer",
+        "children": [
+          [{"type": "Button", "access_key": "KB_BACKTICK", "text": "`"}, 0, 0, 1, 4],
+          [{"type": "Button", "access_key": "KB_1", "text": "1"}, 0, 4, 1, 4],
+          [{"type": "Button", "access_key": "KB_2", "text": "2"}, 0, 8, 1, 4],
+          [{"type": "Button", "access_key": "KB_3", "text": "3"}, 0, 12, 1, 4],
+          [{"type": "Button", "access_key": "KB_4", "text": "4"}, 0, 16, 1, 4],
+          [{"type": "Button", "access_key": "KB_5", "text": "5"}, 0, 20, 1, 4],
+          [{"type": "Button", "access_key": "KB_6", "text": "6"}, 0, 24, 1, 4],
+          [{"type": "Button", "access_key": "KB_7", "text": "7"}, 0, 28, 1, 4],
+          [{"type": "Button", "access_key": "KB_8", "text": "8"}, 0, 32, 1, 4],
+          [{"type": "Button", "access_key": "KB_9", "text": "9"}, 0, 36, 1, 4],
+          [{"type": "Button", "access_key": "KB_0", "text": "0"}, 0, 40, 1, 4],
+          [{"type": "Button", "access_key": "KB_MINUS", "text": "-"}, 0, 44, 1, 4],
+          [{"type": "Button", "access_key": "KB_EQUALS", "text": "="}, 0, 48, 1, 4],
+          [{"type": "Button", "access_key": "KB_BACKSPACE", "text": "⌫"}, 0, 52, 1, 8],
+          [{"type": "Button", "access_key": "KB_TAB", "text": "↹"}, 1, 0, 1, 6],
+          [{"type": "Button", "access_key": "KB_Q", "text": "Q"}, 1, 6, 1, 4],
+          [{"type": "Button", "access_key": "KB_W", "text": "W"}, 1, 10, 1, 4],
+          [{"type": "Button", "access_key": "KB_E", "text": "E"}, 1, 14, 1, 4],
+          [{"type": "Button", "access_key": "KB_R", "text": "R"}, 1, 18, 1, 4],
+          [{"type": "Button", "access_key": "KB_T", "text": "T"}, 1, 22, 1, 4],
+          [{"type": "Button", "access_key": "KB_Y", "text": "Y"}, 1, 26, 1, 4],
+          [{"type": "Button", "access_key": "KB_U", "text": "U"}, 1, 30, 1, 4],
+          [{"type": "Button", "access_key": "KB_I", "text": "I"}, 1, 34, 1, 4],
+          [{"type": "Button", "access_key": "KB_O", "text": "O"}, 1, 38, 1, 4],
+          [{"type": "Button", "access_key": "KB_P", "text": "P"}, 1, 42, 1, 4],
+          [{"type": "Button", "access_key": "KB_LEFT_BRACKET", "text": "["}, 1, 46, 1, 4],
+          [{"type": "Button", "access_key": "KB_RIGHT_BRACKET", "text": "]"}, 1, 50, 1, 4],
+          [{"type": "Button", "access_key": "KB_BACKSLASH", "text": "\\"}, 1, 54, 1, 6],
+          [{"type": "Button", "access_key": null, "text": "⇬"}, 2, 0, 1, 7],
+          [{"type": "Button", "access_key": "KB_A", "text": "A"}, 2, 7, 1, 4],
+          [{"type": "Button", "access_key": "KB_S", "text": "S"}, 2, 11, 1, 4],
+          [{"type": "Button", "access_key": "KB_D", "text": "D"}, 2, 15, 1, 4],
+          [{"type": "Button", "access_key": "KB_F", "text": "F"}, 2, 19, 1, 4],
+          [{"type": "Button", "access_key": "KB_G", "text": "G"}, 2, 23, 1, 4],
+          [{"type": "Button", "access_key": "KB_H", "text": "H"}, 2, 27, 1, 4],
+          [{"type": "Button", "access_key": "KB_J", "text": "J"}, 2, 31, 1, 4],
+          [{"type": "Button", "access_key": "KB_K", "text": "K"}, 2, 35, 1, 4],
+          [{"type": "Button", "access_key": "KB_L", "text": "L"}, 2, 39, 1, 4],
+          [{"type": "Button", "access_key": "KB_SEMICOLON", "text": ";"}, 2, 43, 1, 4],
+          [{"type": "Button", "access_key": "KB_APOSTROPHE", "text": "'"}, 2, 47, 1, 4],
+          [{"type": "Button", "access_key": "KB_RETURN", "text": "↵"}, 2, 51, 1, 9],
+          [{"type": "Button", "access_key": "KB_LEFT_SHIFT", "text": "⇧"}, 3, 0, 1, 9],
+          [{"type": "Button", "access_key": "KB_Z", "text": "Z"}, 3, 9, 1, 4],
+          [{"type": "Button", "access_key": "KB_X", "text": "X"}, 3, 13, 1, 4],
+          [{"type": "Button", "access_key": "KB_C", "text": "C"}, 3, 17, 1, 4],
+          [{"type": "Button", "access_key": "KB_V", "text": "V"}, 3, 21, 1, 4],
+          [{"type": "Button", "access_key": "KB_B", "text": "B"}, 3, 25, 1, 4],
+          [{"type": "Button", "access_key": "KB_N", "text": "N"}, 3, 29, 1, 4],
+          [{"type": "Button", "access_key": "KB_M", "text": "M"}, 3, 33, 1, 4],
+          [{"type": "Button", "access_key": "KB_COMMA", "text": ","}, 3, 37, 1, 4],
+          [{"type": "Button", "access_key": "KB_PERIOD", "text": "."}, 3, 41, 1, 4],
+          [{"type": "Button", "access_key": "KB_SLASH", "text": "/"}, 3, 45, 1, 4],
+          [{"type": "Button", "access_key": "KB_RIGHT_SHIFT", "text": "⇧"}, 3, 49, 1, 11],
+          [{"type": "Button", "access_key": "KB_LEFT_CONTROL", "text": "^"}, 4, 0, 1, 5],
+          [{"type": "Button", "access_key": "KB_LEFT_META", "text": "⌘"}, 4, 5, 1, 5],
+          [{"type": "Button", "access_key": "KB_LEFT_ALT", "text": "⌥"}, 4, 10, 1, 5],
+          [{"type": "Button", "access_key": "KB_SPACE", "text": " "}, 4, 15, 1, 25],
+          [{"type": "Button", "access_key": "KB_RIGHT_ALT", "text": "⌥"}, 4, 40, 1, 5],
+          [{"type": "Button", "access_key": "KB_RIGHT_META", "text": "⌘"}, 4, 45, 1, 5],
+          [{"type": "Button", "access_key": "KB_ISO", "text": "❖"}, 4, 50, 1, 5],
+          [{"type": "Button", "access_key": "KB_RIGHT_CONTROL", "text": "^"}, 4, 55, 1, 5]
         ],
         "rows": [
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
@@ -165,7 +157,7 @@
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
 				]
       },
-      196, 247, 229, 78
+      96, 220, 400, 120
     ]
   ]
 }
