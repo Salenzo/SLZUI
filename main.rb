@@ -5,9 +5,6 @@ require 'gosu'
 require 'securerandom'
 #SecureRandom.uuid
 
-class Glue
-end
-
 class Widget
   attr_accessor :x, :y, :width, :height
   def initialize
@@ -316,7 +313,7 @@ class MainWindow < Gosu::Window
     @button_down_count[id] ||= 0
   end
   def button_down?(id)
-    !!@button_down_count[id]
+    @button_down_count[id] && @button_down_count[id] != 0
   end
   def button_trigger?(id)
     @button_down_count[id] == 1
