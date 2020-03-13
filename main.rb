@@ -5,81 +5,6 @@ require 'gosu'
 require 'securerandom'
 #SecureRandom.uuid
 
-class Widget
-  attr_accessor :x, :y, :width, :height
-  def initialize
-    @x = 0
-    @y = 0
-    @width = 32
-    @height = 32
-    @style = {}
-  end
-  def update
-    should_click = @style[:active]
-    @style[:hover] = under_mouse?
-    @style[:active] = @style[:hover] && $window.button_down?(Gosu::MS_LEFT)
-    @style[:active] ||= $window.button_down?(Gosu.const_get(@access_key)) if @access_key
-    @style[:focus] = focused?
-    should_click &&= !@style[:active]
-    click if should_click
-  end
-  def click
-  end
-  def draw
-  end
-  def under_mouse?
-    $window.mouse_x / 2 > @x && $window.mouse_x / 2 < @x + @width &&
-      $window.mouse_y / 2 > @y && $window.mouse_y / 2 < @y + @height
-  end
-  def focused?
-    false
-  end
-end
-
-class TextField < Widget
-  LENGTH_LIMIT = 60
-  SELECTION_COLOR = 0xcc_0000ff
-  CARET_COLOR     = 0xff_000000
-  def initialize
-    super
-    @x = x
-    @y = y
-    @text_input = Gosu::TextInput.new
-    @text_input.text = "***测试"
-    @font = GUI::FONT
-  end
-  def update
-    super
-    if focused?
-    else
-    end
-  end
-  def draw
-    super
-    if @style[:focus]
-      GUI.draw_9patch(@x, @y, @width, @height, 9, 9, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
-      pos_x = @x + @font.text_width(self.text[0...@text_input.caret_pos])
-      sel_x = @x + @font.text_width(self.text[0...@text_input.selection_start])
-      sel_w = pos_x - sel_x
-      Gosu.draw_rect(sel_x, @y, sel_w, height, 0xcc_0000ff, 0)
-      Gosu.draw_line(pos_x, @y, 0xff_000000, pos_x, @y + height, 0xff_000000, 0)
-    elsif @style[:active]
-      GUI.draw_9patch(@x, @y, @width, @height, 9, 6, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
-    elsif @style[:hover]
-      GUI.draw_9patch(@x, @y, @width, @height, 9, 3, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
-    else
-      GUI.draw_9patch(@x, @y, @width, @height, 9, 0, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
-    end
-    @font.draw_text(text, @x + 4, @y + (@height - @font.height) / 2, 0, 1, 1, @style[:active] ? 0xff_ffffff : 0xff_000000)
-  end
-  def text
-    @text_input.text
-  end
-  def text=(x)
-    @text_input.text = x
-  end
-end
-
 module Cache
   module_function
   def image(name)
@@ -135,6 +60,51 @@ module GUI
   end
 end
 
+class Widget
+  attr_accessor :x, :y, :width, :height
+  def initialize
+    @x = 0
+    @y = 0
+    @width = 32
+    @height = 32
+    @style = {}
+  end
+  def update
+    should_click = @style[:active]
+    @style[:hover] = under_mouse?
+    @style[:active] = @style[:hover] && $window.button_down?(Gosu::MS_LEFT)
+    @style[:active] ||= $window.button_down?(Gosu.const_get(@access_key)) if @access_key
+    @style[:focus] = focused?
+    should_click &&= !@style[:active]
+    click if should_click
+  end
+  def click
+  end
+  def draw
+  end
+  def under_mouse?
+    $window.mouse_x / 2 > @x && $window.mouse_x / 2 < @x + @width &&
+      $window.mouse_y / 2 > @y && $window.mouse_y / 2 < @y + @height
+  end
+  def focused?
+    false
+  end
+end
+
+class Text < Widget
+  attr_accessor :text
+  def initialize
+    super
+    @text = ""
+  end
+  def update
+    super
+  end
+  def draw
+    GUI::FONT.draw_text(@text, @x, @y + (@height - GUI::FONT.height) / 2, 0, 1, 1, 0xff_000000)
+  end
+end
+
 class Button < Widget
   attr_accessor :text
   attr_accessor :access_key
@@ -171,6 +141,50 @@ class Button < Widget
       GUI.draw_9patch(@x, @y, @width, @height, 4, 15, 4, 4, 2, 1, 1, 2, 0, 1, 1, 0)
     end
     GUI::FONT.draw_text(@text, @x + (@width - GUI::FONT.text_width(@text)) / 2, @y + (@height - GUI::FONT.height) / 2, 0, 1, 1, 0xff_000000)
+  end
+end
+
+class TextField < Button
+  LENGTH_LIMIT = 60
+  SELECTION_COLOR = 0xcc_0000ff
+  CARET_COLOR     = 0xff_000000
+  def initialize
+    super
+    @x = x
+    @y = y
+    @text_input = Gosu::TextInput.new
+    @text_input.text = "***测试"
+    @font = GUI::FONT
+  end
+  def update
+    super
+    if focused?
+    else
+    end
+  end
+  def draw
+    super
+    if @style[:focus]
+      GUI.draw_9patch(@x, @y, @width, @height, 9, 9, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
+      pos_x = @x + @font.text_width(self.text[0...@text_input.caret_pos])
+      sel_x = @x + @font.text_width(self.text[0...@text_input.selection_start])
+      sel_w = pos_x - sel_x
+      Gosu.draw_rect(sel_x, @y, sel_w, height, 0xcc_0000ff, 0)
+      Gosu.draw_line(pos_x, @y, 0xff_000000, pos_x, @y + height, 0xff_000000, 0)
+    elsif @style[:active]
+      GUI.draw_9patch(@x, @y, @width, @height, 9, 6, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
+    elsif @style[:hover]
+      GUI.draw_9patch(@x, @y, @width, @height, 9, 3, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
+    else
+      GUI.draw_9patch(@x, @y, @width, @height, 9, 0, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
+    end
+    @font.draw_text(text, @x + 4, @y + (@height - @font.height) / 2, 0, 1, 1, @style[:active] ? 0xff_ffffff : 0xff_000000)
+  end
+  def text
+    @text_input.text
+  end
+  def text=(x)
+    @text_input.text = x
   end
 end
 
@@ -241,7 +255,9 @@ class GridContainer < Container
       columns_calculated[i + 1] = columns_calculated[i] + spring.minimum + spring.stretch * columns_stretch_factor
     end
     @children.each do |(child, row, column, row_span, column_span)|
+      raise "column out of range" if column >= @columns.length
       child.x = @x + columns_calculated[column]
+      raise "row out of range" if row >= @rows.length
       child.y = @y + rows_calculated[row]
       child.width = columns_calculated[column + column_span] - columns_calculated[column]
       child.height = rows_calculated[row + row_span] - rows_calculated[row]
@@ -273,6 +289,38 @@ class UIParser
   end
 end
 
+class SchemaParser
+  def initialize
+  end
+  def construct(a)
+    case a[:type]
+    when "object"
+      children = [
+        [{type: "Text", text: a[:description]}, 0, 0, 1, 2],
+      ]
+      a[:properties].values.each_with_index do |p, i|
+        children << [{type: "Text", text: p[:description].to_s}, i + 1, 0, 1, 1]
+        children << [construct(p), i + 1, 1, 1, 1]
+      end
+      {
+        type: "GridContainer",
+        rows: Array.new(a[:properties].length + 1, {type: "GridContainer::Spring", minimum: 0, stretch: 1}),
+        columns: [
+          {type: "GridContainer::Spring", minimum: 32, stretch: 1},
+          {type: "GridContainer::Spring", minimum: 32, stretch: 4},
+        ],
+        children: children,
+      }
+    when "string"
+      {type: "TextField", access_key: "KB_Q", text: ""}
+    when "integer", "number"
+      {type: "TextField", access_key: "KB_N", text: "0"}
+    when "array"
+      {type: "Button", access_key: "KB_T", text: "Edit"}
+    end
+  end
+end
+
 class MainWindow < Gosu::Window
   def initialize
     super 1280, 720
@@ -280,6 +328,7 @@ class MainWindow < Gosu::Window
     @button_down_count = {}
 
     @root = UIParser.new.construct(JSON.parse(File.read("uisample.json"), symbolize_names: true))
+    @root = UIParser.new.construct(SchemaParser.new.construct(JSON.parse(File.read("formatsample.json"), symbolize_names: true)))
   end
   def update
     @button_down_count.each do |id, value|

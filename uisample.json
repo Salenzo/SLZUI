@@ -6,11 +6,13 @@
       {
         "type": "GridContainer",
         "children": [
-					[{"type": "TextField", "text": "测试中"}, 0, 0, 1, 1],
-					[{"type": "TextField", "text": "测草"}, 1, 0, 1, 1],
-					[{"type": "TextField", "text": "草"}, 2, 0, 1, 1]
+					[{"type": "TextField", "text": "测试中", "access_key": "KB_Q"}, 0, 0, 1, 1],
+					[{"type": "TextField", "text": "测草", "access_key": "KB_Q"}, 1, 0, 1, 1],
+          [{"type": "TextField", "text": "草", "access_key": "KB_Q"}, 2, 0, 1, 1],
+          [{"type": "Text", "text": "标签"}, 3, 0, 1, 1]
 				],
         "rows": [
+          {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1},
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
@@ -19,7 +21,7 @@
           {"type": "GridContainer::Spring", "minimum": 0, "stretch": 1}
 				]
 			},
-			50, 120, 300, 72
+			50, 120, 300, 96
 		],
     [
       {
