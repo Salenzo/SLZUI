@@ -350,7 +350,7 @@ class MainWindow < Gosu::Window
       @root.draw
       unless needs_cursor?
         Gosu.flush
-        GUI.draw_sized($window.mouse_x / 2, $window.mouse_y / 2, 17, 17, 14, 20, 17, 17)
+        GUI.draw_sized($window.mouse_x / 2, $window.mouse_y / 2, 17, 17, 14, 16, 17, 17)
       end
     end
   end
