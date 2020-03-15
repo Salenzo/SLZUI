@@ -14,6 +14,21 @@ module Cache
   end
 end
 
+class Reference
+  attr_accessor :value
+  def initialize(value = nil)
+    @value = value
+  end
+  def inspect
+    "<Reference to #{@value.inspect}>"
+  end
+  %i(to_s to_json).each do |x|
+    define_method(x) do |*args, &block|
+      @value.send(x, *args, &block)
+    end
+  end
+end
+
 module GUI
   module_function
   FONT = Gosu::Font.new(16, name: "SimHei", bold: false, italic: false, underline: true)
@@ -147,7 +162,7 @@ end
 class TextField < Button
   LENGTH_LIMIT = 60
   SELECTION_COLOR = 0xcc_0000ff
-  CARET_COLOR     = 0xff_000000
+  CARET_COLOR = 0xff_000000
   def initialize
     super
     @x = x
@@ -274,23 +289,43 @@ class UIParser
   end
   def construct(a)
     case a
-    when Numeric, String
-      a
     when Array
       a.map { |x| construct(x) }
     when Hash
       r = Object.const_get(a[:type]).new
       a.each do |key, value|
         next if key == :type
-        r.method("#{key}=").call(construct(value))
+        r.send("#{key}=", construct(value))
       end
       r
+    else
+      a
     end
   end
 end
 
+class BooleanBoundButton < Button
+  attr_accessor :data
+  def update
+    super
+    @text = @data.value.to_s
+  end
+  def click
+    super
+    @data.value = !@data.value
+  end
+end
+
 class SchemaParser
+  ACCESS_KEYS = [
+    "KB_Q",
+    "KB_W",
+    "KB_E",
+    "KB_R",
+    "KB_T",
+  ]
   def initialize
+    @access_key = -1
   end
   def construct(a)
     case a[:type]
@@ -312,12 +347,18 @@ class SchemaParser
         children: children,
       }
     when "string"
-      {type: "TextField", access_key: "KB_Q", text: ""}
+      {type: "TextField", access_key: new_access_key, text: ""}
     when "integer", "number"
-      {type: "TextField", access_key: "KB_N", text: "0"}
+      {type: "TextField", access_key: new_access_key, text: "0"}
     when "array"
-      {type: "Button", access_key: "KB_T", text: "Edit"}
+      {type: "Button", access_key: new_access_key, text: "Edit"}
+    when "boolean"
+      {type: "BooleanBoundButton", access_key: new_access_key, data: {type: "Reference", value: false}}
     end
+  end
+  def new_access_key
+    @access_key += 1
+    ACCESS_KEYS[@access_key] || "KB_ISO"
   end
 end
 

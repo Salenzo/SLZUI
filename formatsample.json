@@ -13,6 +13,10 @@
       "description": "Name of the product",
       "type": "string"
     },
+    "aBoolean": {
+      "description": "A boolean value",
+      "type": "boolean"
+    },
     "price": {
       "description": "The price of the product",
       "type": "number",
