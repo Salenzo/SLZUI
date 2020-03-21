@@ -86,7 +86,7 @@ class Widget
   end
   def update
     should_click = @style[:active]
-    @style[:hover] = under_mouse?
+    @style[:hover] = $window.cursor_x > @x && $window.cursor_x < @x + @width && $window.cursor_y > @y && $window.cursor_y < @y + @height
     @style[:active] = @style[:hover] && $window.button_down?(Gosu::MS_LEFT)
     @style[:active] ||= $window.button_down?(Gosu.const_get(@access_key)) if @access_key
     @style[:focus] = focused?
@@ -96,10 +96,6 @@ class Widget
   def click
   end
   def draw
-  end
-  def under_mouse?
-    $window.mouse_x / 2 > @x && $window.mouse_x / 2 < @x + @width &&
-      $window.mouse_y / 2 > @y && $window.mouse_y / 2 < @y + @height
   end
   def focused?
     false
@@ -116,6 +112,7 @@ class Text < Widget
     super
   end
   def draw
+    super
     GUI::FONT.draw_text(@text, @x, @y + (@height - GUI::FONT.height) / 2, 0, 1, 1, 0xff_000000)
   end
 end
@@ -237,7 +234,7 @@ class AbsoluteContainer < Container
       child.y = @y + y
       child.width = width
       child.height = height
-      child.update
+      $window.mask_cursor(child) { child.update }
     end
   end
   def add(child, x, y, width, height)
@@ -276,7 +273,7 @@ class GridContainer < Container
       child.y = @y + rows_calculated[row]
       child.width = columns_calculated[column + column_span] - columns_calculated[column]
       child.height = rows_calculated[row + row_span] - rows_calculated[row]
-      child.update
+      $window.mask_cursor(child) { child.update }
     end
   end
   def add(child, row, column, row_span = 1, column_span = 1)
@@ -383,15 +380,17 @@ class MainWindow < Gosu::Window
     @root.y = 0
     @root.width = 640
     @root.height = 360
-    @root.update
+    mask_cursor(@root) do
+      @root.update
+    end
   end
   def draw
     Gosu.draw_rect(0, 0, width, height, 0xff_114514, 0)
     Gosu.transform(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) do
       @root.draw
-      unless needs_cursor?
+      if !needs_cursor? && $window.mouse_x >= 0 && $window.mouse_x < $window.width && $window.mouse_y >= 0 && $window.mouse_y < $window.height
         Gosu.flush
-        GUI.draw_sized($window.mouse_x / 2, $window.mouse_y / 2, 17, 17, 14, 16, 17, 17)
+        GUI.draw_sized($window.cursor_x, $window.cursor_y, 17, 17, 14, 16, 17, 17)
       end
     end
   end
@@ -411,6 +410,28 @@ class MainWindow < Gosu::Window
   def button_repeat?(id)
     count = @button_down_count[id]
     count == 1 || (count % 6 == 1 && count > 13)
+  end
+  def cursor_x
+    x = mouse_x / 2
+    if @mask_cursor_region
+      x = -2147483647 unless @mask_cursor_region.x <= x && x < @mask_cursor_region.x + @mask_cursor_region.width
+    end
+    x
+  end
+  def cursor_y
+    y = mouse_y / 2
+    if @mask_cursor_region
+      y = -2147483647 unless @mask_cursor_region.y <= y && y < @mask_cursor_region.y + @mask_cursor_region.height
+    end
+    y
+  end
+  def mask_cursor(region)
+    # 鼠标指针处在指定区域外时，假装鼠标指针在无穷远处来执行语句块
+    # 区域是一个有x、y、width、height方法的对象
+    previous_mask_cursor_region = @mask_cursor_region
+    @mask_cursor_region = region
+    yield
+    @mask_cursor_region = previous_mask_cursor_region
   end
 end
 
