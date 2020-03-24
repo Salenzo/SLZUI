@@ -77,28 +77,37 @@ end
 
 class Widget
   attr_accessor :x, :y, :width, :height
+  attr_accessor :disabled, :disabled2
+  %i().each do |x|
+    define_method(x) do
+      @style[x]
+    end
+    define_method(:"#{x}=") do |new_value|
+      @style[x] = new_value
+    end
+  end
   def initialize
     @x = 0
     @y = 0
     @width = 32
     @height = 32
     @style = {}
+    @disabled = false
+    @disabled2 = false
   end
   def update
     should_click = @style[:active]
+    @style[:enabled] = !disabled && !disabled2
     @style[:hover] = $window.cursor_x > @x && $window.cursor_x < @x + @width && $window.cursor_y > @y && $window.cursor_y < @y + @height
     @style[:active] = @style[:hover] && $window.button_down?(Gosu::MS_LEFT)
     @style[:active] ||= $window.button_down?(Gosu.const_get(@access_key)) if @access_key
-    @style[:focus] = focused?
     should_click &&= !@style[:active]
+    should_click &&= @style[:enabled]
     click if should_click
   end
   def click
   end
   def draw
-  end
-  def focused?
-    false
   end
 end
 
@@ -130,11 +139,11 @@ class Button < Widget
   end
   def click
     super
-    p self
   end
   def draw
     super
-    if @style[:active]
+    if !@style[:enabled]
+    elsif @style[:active]
       GUI.draw_9patch(@x, @y, @width, @height, 4, 0, 4, 4, 2, 1, 1, 2, 0, 1, 1, 0)
     elsif @style[:hover]
       GUI.draw_9patch(@x, @y, @width, @height, 5, 1, 4, 4, 1, 2, 2, 1, 0, 1, 1, 0)
@@ -170,13 +179,10 @@ class TextField < Button
   end
   def update
     super
-    if focused?
-    else
-    end
   end
   def draw
     super
-    if @style[:focus]
+    if false
       GUI.draw_9patch(@x, @y, @width, @height, 9, 9, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0)
       pos_x = @x + @font.text_width(self.text[0...@text_input.caret_pos])
       sel_x = @x + @font.text_width(self.text[0...@text_input.selection_start])
@@ -205,6 +211,12 @@ class Container < Widget
   def initialize
     super
     @children = []
+  end
+  def update
+    super
+    @children.each do |(child)|
+      child.disabled2 = !@style[:enabled]
+    end
   end
   def draw
     super
@@ -278,6 +290,41 @@ class GridContainer < Container
   end
   def add(child, row, column, row_span = 1, column_span = 1)
     @children << [child, row, column, row_span, column_span]
+  end
+end
+
+class TreeContainer < Container
+  def initialize
+    super
+  end
+  def update
+    super
+    pre_place_child
+    place_root(@children[0][0])
+    (1...@children.length).each do |i|
+      place_child(@children[i][0])
+    end
+    @children.each do |(child)|
+      $window.mask_cursor(child) { child.update }
+    end
+  end
+  def pre_place_child
+    @i = 0
+    @w = @width / 2
+    @h = @height / (@children.length - 1)
+  end
+  def place_root(child)
+    child.x = @x
+    child.y = @y
+    child.width = @w
+    child.height = @height
+  end
+  def place_child(child)
+    child.x = @x + @w
+    child.y = @y + @i * @h
+    child.width = @w
+    child.height = @h
+    @i += 1
   end
 end
 
@@ -359,6 +406,15 @@ class SchemaParser
   end
 end
 
+class Winode
+  attr_accessor :children
+  attr_accessor :title
+  def initialize
+    @children = []
+    @title = "Unnamed"
+  end
+end
+
 class MainWindow < Gosu::Window
   def initialize
     super 1280, 720
@@ -366,7 +422,7 @@ class MainWindow < Gosu::Window
     @button_down_count = {}
 
     @root = UIParser.new.construct(JSON.parse(File.read("uisample.json"), symbolize_names: true))
-    @root = UIParser.new.construct(SchemaParser.new.construct(JSON.parse(File.read("formatsample.json"), symbolize_names: true)))
+    #@root = UIParser.new.construct(SchemaParser.new.construct(JSON.parse(File.read("formatsample.json"), symbolize_names: true)))
   end
   def update
     @button_down_count.each do |id, value|
