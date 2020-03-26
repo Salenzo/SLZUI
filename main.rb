@@ -55,13 +55,22 @@ module GUI
     draw_sized(x + l, y + h - b, w - l - r, b, sx + l, sy + sh - b, sw - l - r, b)
     draw_sized(x + w - r, y + h - b, r, b, sx + sw - r, sy + sh - b, r, b)
   end
-  def draw_16patch(
+  def draw_decoration(
     x, y, w, h,
-    sx, sy, sw, sh,
-    t, r, b, l,
+    tx, ty, tw, th,
+    rx, ry, rw, rh,
+    bx, by, bw, bh,
+    lx, ly, lw, lh,
     gt = 0, gr = 0, gb = 0, gl = 0
   )
-    raise "not implemented yet"
+    x -= gl
+    y -= gt
+    w += gl + gr
+    h += gt + gb
+    draw_sized(x + (w - tw) / 2, y, tw, th, tx, ty, tw, th)
+    draw_sized(x + w - rw, y + (h - rh) / 2, rw, rh, rx, ry, rw, rh)
+    draw_sized(x + (w - bw) / 2, y + h - bh, bw, bh, bx, by, bw, bh)
+    draw_sized(x, y + (h - lh) / 2, lw, lh, lx, ly, lw, lh)
   end
   def draw_bg(x, y, w, h)
     draw_sized(x, y, w, h, 8, 0, 1, 1)
@@ -108,6 +117,10 @@ class Widget
   def click
   end
   def draw
+    Gosu.draw_rect(@x, @y, @width, @height, 0x10_ffffff, 0)
+  end
+  def intrinsic_size
+    [0, 0]
   end
 end
 
@@ -296,35 +309,52 @@ end
 class TreeContainer < Container
   def initialize
     super
+    @hspace = 30
+    @vspace = 10
   end
   def update
     super
-    pre_place_child
-    place_root(@children[0][0])
+    @children.each do |child|
+      w, h = child[0].intrinsic_size
+      child[0].width = child[1] * w + child[2]
+      child[0].height = child[3] * h + child[4]
+    end
+    @children[0][0].x = @x
+    @children[0][0].y = @y + (@height - @children[0][0].height) / 2
+    y = @y
     (1...@children.length).each do |i|
-      place_child(@children[i][0])
+      @children[i][0].x = @x + @children[0][0].width + @hspace
+      @children[i][0].y = y
+      y += @children[i][0].height + @vspace
     end
     @children.each do |(child)|
       $window.mask_cursor(child) { child.update }
     end
   end
-  def pre_place_child
-    @i = 0
-    @w = @width / 2
-    @h = @height / (@children.length - 1)
+  def draw
+    super
+    (1...@children.length).each do |i|
+      Gosu.draw_line(
+        @children[0][0].x + @children[0][0].width / 2,
+        @children[0][0].y + @children[0][0].height / 2,
+        0xff_00ff00,
+        @children[i][0].x,
+        @children[i][0].y + @children[i][0].height / 2,
+        0xff_00ffff,
+        0
+      )
+    end
   end
-  def place_root(child)
-    child.x = @x
-    child.y = @y
-    child.width = @w
-    child.height = @height
-  end
-  def place_child(child)
-    child.x = @x + @w
-    child.y = @y + @i * @h
-    child.width = @w
-    child.height = @h
-    @i += 1
+  def intrinsic_size
+    widths = @children.map { |x| x[0].width }
+    w = widths.shift
+    w += widths.max
+    w += @hspace
+    heights = @children.map { |x| x[0].height }
+    h = heights.shift
+    h = [h, heights.reduce(0, :+)].max
+    h += @vspace * (@children.length - 2)
+    [w, h]
   end
 end
 

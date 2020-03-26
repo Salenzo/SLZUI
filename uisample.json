@@ -163,18 +163,25 @@
     ],
     [
       {"type": "TreeContainer", "children": [
-        [{"type": "Button", "access_key": "KB_Q", "text": "树"}],
-        [{"type": "Button", "access_key": "KB_R", "text": "摩１"}],
+        [{"type": "Button", "access_key": "KB_Q", "text": "树"}, 1, 20, 1, 20],
+        [{"type": "Button", "access_key": "KB_R", "text": "摩１"}, 1, 20, 1, 20],
         [{"type": "TreeContainer", "children": [
-          [{"type": "Button", "access_key": "KB_V", "text": "子１"}],
-          [{"type": "Button", "access_key": "KB_V", "text": "子２"}],
-          [{"type": "Button", "access_key": "KB_V", "text": "子３"}]
+          [{"type": "Button", "access_key": "KB_V", "text": "子１"}, 1, 20, 1, 20],
+          [{"type": "Button", "access_key": "KB_V", "text": "子２"}, 1, 20, 1, 20],
+          [{"type": "TreeContainer", "children": [
+            [{"type": "Button", "access_key": "KB_V", "text": "子１"}, 1, 20, 1, 20],
+            [{"type": "Button", "access_key": "KB_V", "text": "子２"}, 1, 20, 1, 20],
+            [{"type": "Button", "access_key": "KB_V", "text": "子３"}, 1, 20, 1, 20]
+          ]
+          }, 1, 0, 1, 0],
+          [{"type": "Button", "access_key": "KB_V", "text": "子３"}, 1, 20, 1, 20],
+          [{"type": "Button", "access_key": "KB_V", "text": "子４"}, 1, 20, 1, 20]
         ]
-        }],
-        [{"type": "Button", "access_key": "KB_V", "text": "摩３"}],
-        [{"type": "Button", "access_key": "KB_V", "text": "摩多"}]
+        }, 1, 0, 1, 0],
+        [{"type": "Button", "access_key": "KB_V", "text": "摩３"}, 1, 20, 1, 20],
+        [{"type": "Button", "access_key": "KB_V", "text": "摩多"}, 1, 20, 1, 20]
       ]},
-      400, 100, 100, 100
+      400, 20, 200, 200
     ]
   ]
 }
