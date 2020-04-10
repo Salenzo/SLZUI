@@ -86,6 +86,7 @@ end
 
 class Widget
   attr_accessor :x, :y, :width, :height
+  # disabled应该被直接设置，disabled2应该被中间组件设置。
   attr_accessor :disabled, :disabled2
   %i().each do |x|
     define_method(x) do
@@ -220,9 +221,13 @@ class TextField < Button
 end
 
 class Container < Widget
+  # @children应为二维数组，如[[控件, 布局参数, ...], [控件, ...], ...]
   attr_accessor :children
+  attr_accessor :ox, :oy
   def initialize
     super
+    @ox = 0
+    @oy = 0
     @children = []
   end
   def update
@@ -230,21 +235,38 @@ class Container < Widget
     @children.each do |(child)|
       child.disabled2 = !@style[:enabled]
     end
+    w, h = intrinsic_size
+    @style[:scroll_up] = @oy > 0
+    @style[:scroll_right] = w - @ox > @width
+    @style[:scroll_down] = h - @oy > @height
+    @style[:scroll_left] = @ox > 0
   end
   def draw
     super
     Gosu.clip_to(@x, @y, @width, @height) do
-      (@children.is_a?(Enumerable) ? @children : [@children]).each do |child|
-        child = child.first unless child.is_a?(Widget)
+      @children.each do |(child)|
         if child.x < @x + @width && child.x + child.width >= @x &&
            child.y < @y + @height && child.y + child.height >= @y
           child.draw
         end
       end
     end
+    GUI.draw_9patch(
+      @x, @y, @width, @height,
+      (@style[:scroll_up] ? 8 : 0) + (@style[:scroll_right] ? 8 : 0),
+      49 + (@style[:scroll_down] ? 8 : 0) + (@style[:scroll_left] ? 8 : 0),
+      8, 8,
+      3, 3, 3, 3, 0, 0, 0, 0
+    )
   end
   def clear
     @children.clear
+  end
+  def scroll_into_view(x, y)
+    @ox -= @x - x if x < @x
+    @ox += x - (@x + @width) if x >= @x + @width
+    @oy -= @y - y if y < @y
+    @oy += y - (@y + @height) if y >= @y + @height
   end
 end
 
@@ -255,8 +277,8 @@ class AbsoluteContainer < Container
   def update
     super
     @children.each do |(child, x, y, width, height)|
-      child.x = @x + x
-      child.y = @y + y
+      child.x = @x - @ox + x
+      child.y = @y - @oy + y
       child.width = width
       child.height = height
       $window.mask_cursor(child) { child.update }
@@ -293,9 +315,9 @@ class GridContainer < Container
     end
     @children.each do |(child, row, column, row_span, column_span)|
       raise "column out of range" if column >= @columns.length
-      child.x = @x + columns_calculated[column]
+      child.x = @x - @ox + columns_calculated[column]
       raise "row out of range" if row >= @rows.length
-      child.y = @y + rows_calculated[row]
+      child.y = @y - @oy + rows_calculated[row]
       child.width = columns_calculated[column + column_span] - columns_calculated[column]
       child.height = rows_calculated[row + row_span] - rows_calculated[row]
       $window.mask_cursor(child) { child.update }
@@ -319,11 +341,11 @@ class TreeContainer < Container
       child[0].width = child[1] * w + child[2]
       child[0].height = child[3] * h + child[4]
     end
-    @children[0][0].x = @x
-    @children[0][0].y = @y + (@height - @children[0][0].height) / 2
-    y = @y
+    @children[0][0].x = @x - @ox
+    @children[0][0].y = @y - @oy + (@height - @children[0][0].height) / 2
+    y = @y - @oy
     (1...@children.length).each do |i|
-      @children[i][0].x = @x + @children[0][0].width + @hspace
+      @children[i][0].x = @x - @ox + @children[0][0].width + @hspace
       @children[i][0].y = y
       y += @children[i][0].height + @vspace
     end
