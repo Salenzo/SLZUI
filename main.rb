@@ -368,11 +368,16 @@ class TreeContainer < Container
     end
   end
   def intrinsic_size
-    widths = @children.map { |x| x[0].width }
+    widths = []
+    heights = []
+    @children.each do |child|
+      w, h = child[0].intrinsic_size
+      widths << child[1] * w + child[2]
+      heights << child[3] * h + child[4]
+    end
     w = widths.shift
     w += widths.max
     w += @hspace
-    heights = @children.map { |x| x[0].height }
     h = heights.shift
     h = [h, heights.reduce(0, :+)].max
     h += @vspace * (@children.length - 2)
