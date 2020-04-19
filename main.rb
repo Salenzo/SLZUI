@@ -4,6 +4,13 @@ require 'json'
 require 'gosu'
 require 'securerandom'
 #SecureRandom.uuid
+require 'weakref'
+
+class WeakHash < Hash
+  def []=(key, value)
+    super(key, WeakRef.new(value))
+  end
+end
 
 module Cache
   module_function
@@ -25,6 +32,23 @@ class Reference
   %i(to_s to_json).each do |x|
     define_method(x) do |*args, &block|
       @value.send(x, *args, &block)
+    end
+  end
+end
+
+# 用于将数据数组动态映射到控件对象的类。
+class CachedMappedEnumerable
+  include Enumerable
+  attr_accessor :value, :mapping
+  def initialize
+    @cache = WeakHash.new
+  end
+  def each
+    return to_enum(__callee__) unless block_given?
+    tap do
+      @value.each do |x|
+        yield (@cache[x.object_id] ||= @mapping.call(x))
+      end
     end
   end
 end
@@ -325,6 +349,46 @@ class GridContainer < Container
   end
   def add(child, row, column, row_span = 1, column_span = 1)
     @children << [child, row, column, row_span, column_span]
+  end
+end
+
+class FlexContainer < Container
+  def initialize
+    super
+    @direction = 1 # whatever
+    @space = 10
+  end
+  def update
+    super
+    @children.each do |child|
+      w, h = child[0].intrinsic_size
+      child[0].width = child[1] * w + child[2]
+      child[0].height = child[3] * h + child[4]
+    end
+    @children[0][0].x = @x - @ox
+    @children[0][0].y = @y - @oy + (@height - @children[0][0].height) / 2
+    y = @y - @oy
+    @children.each do |(child)|
+      child.x = @x - @ox
+      child.y = y
+      y += child.height + @space
+    end
+  end
+  def intrinsic_size
+    widths = []
+    heights = []
+    @children.each do |child|
+      w, h = child[0].intrinsic_size
+      widths << child[1] * w + child[2]
+      heights << child[3] * h + child[4]
+    end
+    w = widths.shift
+    w += widths.max
+    w += @hspace
+    h = heights.shift
+    h = [h, heights.reduce(0, :+)].max
+    h += @vspace * (@children.length - 2)
+    [w, h]
   end
 end
 
